@@ -19,7 +19,30 @@ const transporter = nodemailer.createTransport({
     pass: process.env.GMAIL_APP_PASSWORD,
   },
 }); 
+export default async function handler(req, res) {
+  try {
+    await runCors(req, res);
 
+    if (req.method !== "POST") {
+      return res.status(405).json({ error: "Método no permitido" });
+    }
+
+    // Mostrar temporalmente el token recibido
+    console.log("Token recibido:", req.headers.authorization);
+
+    const { name, email, message } = req.body;
+
+    // Solo para pruebas: devolver el token recibido en la respuesta
+    return res.status(200).json({ tokenRecibido: req.headers.authorization });
+
+    // --- El resto de código para enviar email quedaría aquí ---
+  } catch (error) {
+    console.error("Error en handler:", error);
+    res.status(500).json({ error: error.toString() });
+  }
+}
+
+/*
 export default async function handler(req, res) {
   await runCors(req, res); 
 
@@ -53,5 +76,5 @@ export default async function handler(req, res) {
       console.log("Email sent: " + info.response);
       res.status(200).json({ message: "Email enviado correctamente" });
     }
-  });
+  });*/
 }
