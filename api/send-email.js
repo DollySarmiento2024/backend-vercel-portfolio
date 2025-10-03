@@ -15,7 +15,7 @@ function runCors(req, res) {
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "fernandasar1289@gmail.com",
+    user: "fernandasar1289@gmail.com", 
     pass: process.env.GMAIL_APP_PASSWORD,
   },
 });
