@@ -23,6 +23,11 @@ const transporter = nodemailer.createTransport({
 export default async function handler(req, res) {
   await runCors(req, res);
 
+  // Comprobación en la función
+  if (req.headers.authorization !== `Bearer ${process.env.API_TOKEN}`) {
+    return res.status(401).json({ error: "No autorizado" });
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Método no permitido" });
   }
