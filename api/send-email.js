@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
     user: "fernandasar1289@gmail.com", 
     pass: process.env.GMAIL_APP_PASSWORD,
   },
-});
+}); 
 
 export default async function handler(req, res) {
   await runCors(req, res); 
